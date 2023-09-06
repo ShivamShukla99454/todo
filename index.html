@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #2C3E50;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #ECF0F1;
+        }
+
+        #todo-container {
+            background-color: #34495E;
+            border-radius: 10px;
+            margin: 10px auto;
+            max-width: 600px;
+            padding: 20px;
+            box-shadow: 0 4px 8px #2980B9;
+        }
+
+        #todo-header {
+            background-color: #2980B9;
+            border-radius: 30px;
+            font-size: 36px;
+            padding: 10px 30px;
+            color: #ECF0F1;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+        }
+
+        #todo-input {
+            width: 70%;
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            background-color: #34495E;
+            color: #ECF0F1;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #todo-input:hover {
+            background-color: #2C3E50;
+            transform: scale(1.05);
+        }
+
+        #add-button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #2980B9;
+            color: #ECF0F1;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #add-button:hover {
+            background-color: #2471A3;
+            transform: scale(1.05);
+        }
+
+        #todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #2C3E50;
+            transition: background-color 0.3s;
+        }
+
+        .todo-item:hover {
+            background-color: #34495E;
+        }
+
+        .delete-button {
+            background-color: #E74C3C;
+            color: #ECF0F1;
+            transition: background-color 0.3s, color 0.3s;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #C0392B;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="todo-container">
+        <h1 id="todo-header">TODO List</h1>
+        <div>
+            <input type="text" id="todo-input" placeholder="Enter your task here">
+            <button id="add-button">Add</button>
+        </div>
+        <ul id="todo-list">
+
+        </ul>
+    </div>
+
+    <script>
+        const todoList = document.getElementById('todo-list');
+        const addButton = document.getElementById('add-button');
+        const todoInput = document.getElementById('todo-input');
+
+        addButton.addEventListener('click', () => {
+            const taskText = todoInput.value.trim();
+            if (taskText !== "") {
+                const listItem = document.createElement('li');
+                listItem.className = 'todo-item';
+                listItem.innerHTML = `
+                    <span>${taskText}</span>
+                    <button class="delete-button">Delete</button>
+                `;
+                todoList.appendChild(listItem);
+                todoInput.value = "";
+            }
+        });
+
+        todoList.addEventListener('click', (event) => {
+            if (event.target.classList.contains('delete-button')) {
+                const listItem = event.target.closest('.todo-item');
+                if (listItem) {
+                    listItem.remove();
+                }
+            }
+        });
+
+        todoInput.addEventListener('keydown', (e) => {
+            if (e.key === "Enter") {
+                addButton.click();
+            }
+        });
+    </script>
+</body>
+
+</html>
